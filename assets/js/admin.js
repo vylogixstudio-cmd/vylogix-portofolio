@@ -6,8 +6,8 @@
 // ============================================================
 // 1. SUPABASE CLIENT (Sama persis dengan supabase.js utama)
 // ============================================================
-const SUPABASE_URL = 'https://gdxzinjykacxverejqfg.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_AX8EYfylGeI8B1hAMOzDKQ_Qm1IzrFM';
+const SUPABASE_URL = 'https://bjidgmnbrkgecdtankpg.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_0yFmVFF7hQjJ9iOq0FipQg_klzKHsLo';
 
 const { createClient } = supabase;
 const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
