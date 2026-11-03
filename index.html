@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vylogix Studio — Digital Agency</title>
+<meta name="description" content="Vylogix Studio membantu brand membangun eksistensi digital lewat Web Development, Poster Design, dan Video Editing.">
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Tailwind CSS (Play CDN) -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          background: '#F8F9FA',
+          surface: '#FFFFFF',
+          primary: '#111827',
+          secondary: '#4B5563',
+          accent: '#2563EB',
+          accentsoft: '#EFF6FF',
+        },
+        fontFamily: {
+          heading: ['"Plus Jakarta Sans"', 'sans-serif'],
+          body: ['Inter', 'sans-serif'],
+        },
+        borderRadius: {
+          card: '20px',
+          btn: '12px',
+        },
+      },
+    },
+  };
+</script>
+
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body class="bg-background text-primary font-body antialiased relative overflow-x-hidden">
+
+<!-- ============ NAVBAR ============ -->
+<header id="navbar" class="fixed top-0 inset-x-0 z-50 transition-transform duration-300">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="glass mt-4 rounded-btn flex items-center justify-between px-5 py-3">
+      <a href="#beranda" class="font-heading font-extrabold text-gray-800 flex items-center gap-2">
+        <span class="text-2xl text-blue-600">Vylogix</span>: 
+        <span class="text-gray-600">Bridging Design and Code.</span>
+        <span class="text-accent">...</span>
+      </a>
+
+      <!-- Desktop menu -->
+      <nav class="hidden md:flex items-center gap-8 font-medium text-sm text-secondary">
+        <a href="#beranda" class="nav-link hover:text-primary transition-colors">Beranda</a>
+        <a href="#layanan" class="nav-link hover:text-primary transition-colors">Layanan</a>
+        <a href="#portfolio" class="nav-link hover:text-primary transition-colors">Karya Terpilih</a>
+        <a href="#tentang-kami" class="nav-link hover:text-primary transition-colors">Tentang Kami</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <a href="https://wa.me/6287828703713" target="_blank" rel="noopener"
+           class="hidden md:inline-flex items-center gap-2 bg-accent text-white text-sm font-semibold px-5 py-2.5 rounded-btn hover:bg-accent/90 hover:-translate-y-0.5 transition-all shadow-sm shadow-accent/20">
+          Hubungi Kami
+        </a>
+
+        <!-- Mobile hamburger -->
+        <button id="menuToggle" aria-label="Buka menu" aria-expanded="false" class="md:hidden w-10 h-10 grid place-items-center rounded-btn hover:bg-black/5 transition-colors">
+          <svg id="iconMenu" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          <svg id="iconClose" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="hidden"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile dropdown -->
+    <div id="mobileMenu" class="md:hidden hidden mt-2 glass rounded-btn px-5 py-4 flex flex-col gap-1 font-medium text-sm text-secondary">
+      <a href="#beranda" class="mobile-link py-2.5 border-b border-black/5">Beranda</a>
+      <a href="#layanan" class="mobile-link py-2.5 border-b border-black/5">Layanan</a>
+      <a href="#portfolio" class="mobile-link py-2.5 border-b border-black/5">Karya Terpilih</a>
+      <a href="#tentang-kami" class="mobile-link py-2.5 border-b border-black/5">Tentang Kami</a>
+      <a href="https://wa.me/6287828703713" target="_blank" rel="noopener" class="mt-3 text-center bg-accent text-white font-semibold px-5 py-2.5 rounded-btn">Hubungi Kami</a>
+    </div>
+  </div>
+</header>
+
+<!-- ============ HERO (Harmonis & Padat) ============ -->
+<section id="beranda" class="relative pt-36 pb-14 md:pt-40 md:pb-12 overflow-hidden">
+  <div class="canvas-grid"></div>
+  <div class="mx-auto max-w-7xl px-6 relative">
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <div class="max-w-2xl">
+        <span class="inline-flex items-center gap-2 bg-accentsoft text-accent text-xs font-semibold px-4 py-2 rounded-full">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          Tersedia Slot Proyek Bulan Ini
+        </span>
+
+        <h1 class="font-heading font-extrabold text-4xl md:text-5xl lg:text-6xl leading-[1.1] tracking-tight mt-6">
+          Membangun <span class="relative inline-block">Eksistensi Digital<svg class="brush-underline" viewBox="0 0 300 24" preserveAspectRatio="none"><path d="M4 16 C 60 4, 120 22, 180 10 S 260 4, 296 14" /></svg></span> yang Clean &amp; Berdampak.
+        </h1>
+
+        <p class="text-secondary text-base md:text-lg mt-6 leading-relaxed">
+          Kami adalah studio digital yang merapikan tiga sisi kebutuhan brand kamu: situs web yang cepat &amp; rapi,
+          materi visual yang enak dipandang, dan konten video yang bikin orang berhenti scroll.
+        </p>
+
+        <div class="flex flex-wrap items-center gap-4 mt-9">
+          <a href="https://wa.me/6287828703713" target="_blank" rel="noopener"
+             class="bg-accent text-white font-semibold px-7 py-3.5 rounded-btn hover:bg-accent/90 hover:-translate-y-0.5 transition-all shadow-lg shadow-accent/25">
+            Mulai Proyek
+          </a>
+        </div>
+      </div>
+
+      <div class="relative hidden lg:block">
+        <div class="absolute inset-0 bg-accentsoft rounded-3xl transform rotate-3 scale-105 -z-10"></div>
+        <img src="assets/img/vylogix-hero.jpg" alt="Vylogix Studio Hero" class="rounded-3xl shadow-2xl object-cover h-[450px] w-full">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES (Padding Compact) ============ -->
+<section id="layanan" class="py-10 md:py-14">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="max-w-xl mb-12">
+      <h2 class="font-heading font-bold text-3xl md:text-4xl tracking-tight">Layanan yang Kami Sediakan</h2>
+      <p class="text-secondary mt-2.5">Klik salah satu layanan untuk langsung melompat ke contoh karyanya.</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      <!-- Web Development -->
+      <a href="web.html" class="service-card group bg-surface rounded-card p-8 border border-black/5">
+        <div class="w-14 h-14 rounded-btn bg-accentsoft grid place-items-center text-accent mb-6 transition-colors group-hover:bg-accent group-hover:text-white">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <h3 class="font-heading font-bold text-xl mb-2">Web Development</h3>
+        <p class="text-secondary text-sm leading-relaxed">Situs company profile, landing page, hingga web app custom — cepat, responsif, dan mudah dikelola.</p>
+        <span class="inline-flex items-center gap-1.5 text-accent text-sm font-semibold mt-5">
+          Lihat karya <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="transition-transform group-hover:translate-x-1"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
+      </a>
+
+      <!-- Poster Design -->
+      <a href="desain.html" class="service-card group bg-surface rounded-card p-8 border border-black/5">
+        <div class="w-14 h-14 rounded-btn bg-accentsoft grid place-items-center text-accent mb-6 transition-colors group-hover:bg-accent group-hover:text-white">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r="0.5"/><circle cx="17.5" cy="10.5" r="0.5"/><circle cx="8.5" cy="7.5" r="0.5"/><circle cx="6.5" cy="12.5" r="0.5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.9 0 1.5-.7 1.5-1.5 0-.4-.2-.8-.4-1-.3-.3-.4-.6-.4-1 0-.8.7-1.5 1.5-1.5H16c3.3 0 6-2.7 6-6 0-4.4-4.5-8-10-8z"/></svg>
+        </div>
+        <h3 class="font-heading font-bold text-xl mb-2">Poster Design</h3>
+        <p class="text-secondary text-sm leading-relaxed">Materi visual untuk campaign, event, dan konten sosial media yang konsisten dengan identitas brand.</p>
+        <span class="inline-flex items-center gap-1.5 text-accent text-sm font-semibold mt-5">
+          Lihat karya <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="transition-transform group-hover:translate-x-1"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
+      </a>
+
+      <!-- Video Editing -->
+      <a href="video.html" class="service-card group bg-surface rounded-card p-8 border border-black/5">
+        <div class="w-14 h-14 rounded-btn bg-accentsoft grid place-items-center text-accent mb-6 transition-colors group-hover:bg-accent group-hover:text-white">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+        </div>
+        <h3 class="font-heading font-bold text-xl mb-2">Video Editing</h3>
+        <p class="text-secondary text-sm leading-relaxed">Aftermovie, konten reels, sampai video promosi dengan pacing dan color grading yang rapi.</p>
+        <span class="inline-flex items-center gap-1.5 text-accent text-sm font-semibold mt-5">
+          Lihat karya <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="transition-transform group-hover:translate-x-1"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PORTFOLIO (BENTO) — Pangkas dari py-28 jadi py-16 ============ -->
+<section id="portfolio" class="py-12 md:py-16 scroll-mt-24">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-8">
+      <div>
+        <h2 class="font-heading font-bold text-3xl md:text-4xl tracking-tight">Karya Terpilih</h2>
+        <p class="text-secondary mt-2">Sebagian proyek yang pernah kami kerjakan bersama klien.</p>
+      </div>
+
+      <div class="flex flex-wrap gap-2.5" id="filterButtons">
+        <button data-filter="all" class="filter-btn active-filter px-5 py-2.5 rounded-btn text-sm font-semibold">Semua</button>
+        <button data-filter="web" class="filter-btn px-5 py-2.5 rounded-btn text-sm font-semibold">Website</button>
+        <button data-filter="design" class="filter-btn px-5 py-2.5 rounded-btn text-sm font-semibold">Desain</button>
+        <button data-filter="video" class="filter-btn px-5 py-2.5 rounded-btn text-sm font-semibold">Video</button>
+      </div>
+    </div>
+
+    <div id="bentoGrid" class="grid grid-cols-1 md:grid-cols-4 gap-6 auto-rows-auto md:auto-rows-[240px]">
+    </div>
+
+    <p id="emptyState" class="hidden text-center text-secondary text-sm py-16">Belum ada karya di kategori ini.</p>
+  </div>
+</section>
+
+<!-- ============ MODAL (LIGHTBOX) ============ -->
+<div id="modalOverlay" class="fixed inset-0 z-[100] hidden">
+  <div id="modalBackdrop" class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+  <div class="relative h-full flex items-center justify-center p-4 md:p-8">
+    <div id="modalBox" class="relative bg-surface w-full max-w-[1100px] md:h-[700px] h-[80vh] rounded-2xl overflow-hidden flex flex-col shadow-2xl">
+      <div class="flex items-center justify-between px-5 py-4 border-b border-black/5 shrink-0">
+        <h3 id="modalTitle" class="font-heading font-bold text-base md:text-lg truncate pr-4">Judul Proyek</h3>
+        <button id="modalClose" aria-label="Tutup" class="w-9 h-9 shrink-0 grid place-items-center rounded-full hover:bg-black/5 transition-colors">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div id="modalBody" class="flex-1 bg-black/95 grid place-items-center overflow-hidden"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ TENTANG KAMI — Pangkas dari py-28 jadi py-16 ============ -->
+<section id="tentang-kami" class="py-12 md:py-16">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="grid md:grid-cols-2 gap-10 lg:gap-12 items-center">
+      <div>
+        <h2 class="font-heading font-bold text-3xl md:text-4xl tracking-tight mb-5 leading-tight">
+          Mengenal <span class="text-blue-600">Vylogix</span>:<br>
+          Memadukan <span class="text-blue-600">Visual</span> &amp; <span class="text-blue-600">Logika</span>.
+        </h2>
+        <p class="text-secondary text-base md:text-lg leading-relaxed mb-3.5">
+          Berawal dari kecintaan pada desain dan teknologi, kami hadir untuk membantu brand Anda tampil <em class="italic text-primary font-medium">stand-out</em>. Tim kami terdiri dari desainer, developer, dan videografer yang percaya bahwa visual yang baik bukan cuma soal estetika, tapi juga komunikasi yang tepat sasaran untuk mengeksekusi ide liar Anda menjadi karya digital yang berkesan.
+        </p>
+        <p class="text-secondary text-base md:text-lg leading-relaxed mb-3.5">
+          <strong class="text-primary font-semibold">Vylogix Studio</strong> lahir dari sebuah pemahaman sederhana: desain yang indah tidak akan maksimal tanpa sistem yang solid, dan kode yang canggih akan terasa kaku tanpa sentuhan estetika. Nama kami mewakili dua pilar utama dunia digital: <strong class="text-blue-600 font-semibold">Visual (Vy)</strong> dan <strong class="text-blue-600 font-semibold">Logic (Logix)</strong>.
+        </p>
+        <p class="text-secondary text-base md:text-lg leading-relaxed">
+          Kami adalah jembatan di antara keduanya. Mulai dari merancang antarmuka yang memanjakan mata, membangun sistem web yang presisi, hingga merangkai konten video yang bercerita—kami memastikan kehadiran digital brand Anda tidak hanya terlihat luar biasa, tapi juga bekerja dengan sempurna.
+        </p>
+      </div>
+      <div class="relative">
+        <div class="absolute inset-0 bg-blue-50/80 rounded-card transform -rotate-3 scale-105 -z-10"></div>
+        <img src="assets/img/tentang-kami.jpg" alt="Filosofi dan Tim Vylogix Studio" class="rounded-card shadow-lg w-full h-[260px] md:h-[420px] object-cover transition-transform duration-500 hover:scale-[1.02]">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TEASER PRICELIST — Pangkas dari py-28 jadi py-18 ============ -->
+<section id="pricelist-teaser" class="py-14 md:py-18 bg-background border-y border-gray-200/60">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="text-center max-w-2xl mx-auto mb-12 fade-up">
+      <span class="inline-flex items-center gap-1.5 text-accent text-xs font-semibold bg-blue-50 rounded-full px-4 py-1.5 mb-3 ring-1 ring-accent/10">
+        <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
+        Investasi Karya Digital
+      </span>
+      <h2 class="font-heading font-extrabold text-3xl md:text-4xl tracking-tight">
+        Pilihan Paket &amp; <span class="text-accent">Harga Transparan</span>
+      </h2>
+      <p class="text-secondary mt-2.5 text-sm md:text-base leading-relaxed">
+        Kualitas visual sinematik dan logika kode yang presisi, disesuaikan dengan skala kebutuhan brand kamu.
+      </p>
+    </div>
+    <div id="wadah-pricelist-beranda" class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch max-w-6xl mx-auto"></div>
+  </div>
+</section>
+
+<!-- ============ CONTACT CTA ============ -->
+<section class="py-8 md:py-12">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="relative bg-accent rounded-card overflow-hidden px-6 py-14 md:px-16 md:py-18 text-center shadow-2xl shadow-accent/20">
+      <div class="cta-glow"></div>
+      
+      <span class="inline-flex items-center gap-2 bg-white/10 text-white border border-white/20 text-xs font-semibold px-4 py-1.5 rounded-full mb-5 backdrop-blur-md">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        Fast Response &amp; Value-Based Agency
+      </span>
+
+      <h2 class="relative font-heading font-extrabold text-3xl md:text-5xl text-white max-w-3xl mx-auto leading-tight">
+        Bingung Mulai dari Mana? Atau Punya <span class="text-blue-200 underline decoration-wavy decoration-blue-300">Project Custom?</span>
+      </h2>
+      
+      <p class="relative text-white/90 mt-4 max-w-xl mx-auto text-base md:text-lg leading-relaxed">
+        Jangan ragu untuk berdiskusi. Kami siap membedah kebutuhan digital brand atau event kamu dengan solusi yang pas di budget dan selesai tepat waktu.
+      </p>
+      
+      <div class="relative flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
+        
+        <button data-wa-consult="true"
+           class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-white text-accent font-bold px-8 py-3.5 rounded-btn hover:-translate-y-1 hover:shadow-xl hover:bg-blue-50 transition-all duration-300 shadow-lg text-sm sm:text-base cursor-pointer">
+          <svg class="w-5 h-5 text-accent shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+          Konsultasi Gratis Sekarang
+        </button>
+
+        <button data-wa-custom="true"
+           class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-transparent text-white border-2 border-white/40 font-semibold px-8 py-3.5 rounded-btn hover:bg-white/10 hover:border-white transition-all duration-300 text-sm sm:text-base cursor-pointer">
+          ✨ Request Custom / Event
+        </button>
+
+      </div>
+
+      <p class="relative text-white/60 text-xs mt-6">
+        *Tim Vylogix Studio akan merespons dalam waktu kurang dari 1x24 jam kerja.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="mt-12 border-t border-black/5">
+  <div class="mx-auto max-w-7xl px-6 py-10 flex flex-col md:flex-row items-center justify-between gap-5">
+    <p class="text-secondary text-sm order-2 md:order-1">
+      &copy; <span id="year"></span> Vylogix Studio. Seluruh hak cipta dilindungi.
+    </p>
+    <div class="flex items-center gap-4 order-1 md:order-2">
+      <a href="https://instagram.com/vylogix.studio" target="_blank" rel="noopener" aria-label="Instagram" class="w-9 h-9 grid place-items-center rounded-full border border-black/10 text-secondary hover:text-accent hover:border-accent transition-colors">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg>
+      </a>
+      <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn" class="w-9 h-9 grid place-items-center rounded-full border border-black/10 text-secondary hover:text-accent hover:border-accent transition-colors">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      </a>
+      <a href="https://github.com" target="_blank" rel="noopener" aria-label="GitHub" class="w-9 h-9 grid place-items-center rounded-full border border-black/10 text-secondary hover:text-accent hover:border-accent transition-colors">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.36-3.37-1.36-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.05 1.53 1.05.9 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.64-1.38-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.32.1-2.75 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.9-1.33 2.75-1.05 2.75-1.05.55 1.43.2 2.49.1 2.75.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<!-- Supabase JS Library (CDN) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<!-- Supabase Connection & Data Layer -->
+<script src="assets/js/supabase.js"></script>
+<!-- Main Script -->
+<script src="assets/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel — Vylogix Studio</title>
+  <meta name="description" content="Dashboard admin untuk mengelola data portofolio dan pricelist Vylogix Studio.">
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            background: '#F1F5F9',
+            surface: '#FFFFFF',
+            primary: '#0F172A',
+            secondary: '#64748B',
+            accent: '#2563EB',
+            danger: '#EF4444',
+          },
+          fontFamily: {
+            heading: ['"Plus Jakarta Sans"', 'sans-serif'],
+            body: ['Inter', 'sans-serif'],
+          },
+          borderRadius: {
+            card: '16px',
+            btn: '12px',
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; }
+
+    /* Login gradient */
+    .login-bg {
+      background: linear-gradient(135deg, #0F172A 0%, #1E293B 40%, #1E40AF 100%);
+    }
+
+    /* Subtle card hover */
+    .stat-card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .stat-card:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.08); }
+
+    /* Table row hover */
+    .table-row { transition: background-color 0.15s ease; }
+    .table-row:hover { background-color: #F8FAFC; }
+
+    /* Tab active */
+    .tab-active { background-color: #2563EB; color: white; box-shadow: 0 2px 8px rgba(37,99,235,0.25); }
+    .tab-inactive { background-color: white; color: #64748B; border: 1px solid #E2E8F0; }
+    .tab-inactive:hover { color: #0F172A; border-color: #CBD5E1; }
+
+    .subtab-active { background-color: #EFF6FF; color: #2563EB; font-weight: 600; }
+    .subtab-inactive { color: #64748B; }
+    .subtab-inactive:hover { color: #0F172A; background-color: #F8FAFC; }
+
+    /* Modal animation */
+    .modal-backdrop { transition: opacity 0.2s ease; }
+    .modal-content { transition: transform 0.2s ease, opacity 0.2s ease; }
+
+    /* Smooth scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 99px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+
+    /* Spinner */
+    .spinner { border: 3px solid #E2E8F0; border-top-color: #2563EB; border-radius: 50%; width: 24px; height: 24px; animation: spin 0.6s linear infinite; display: inline-block; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Toast notification */
+    .toast {
+      position: fixed; bottom: 24px; right: 24px; z-index: 200;
+      padding: 14px 20px; border-radius: 12px;
+      font-size: 14px; font-weight: 500;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+      transform: translateY(100px); opacity: 0;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast-success { background: #ECFDF5; color: #065F46; border: 1px solid #A7F3D0; }
+    .toast-error { background: #FEF2F2; color: #991B1B; border: 1px solid #FECACA; }
+  </style>
+</head>
+
+<body class="bg-background font-body text-primary antialiased min-h-screen">
+
+<!-- ============================================================ -->
+<!-- LOGIN SCREEN                                                  -->
+<!-- ============================================================ -->
+<div id="loginScreen" class="login-bg fixed inset-0 z-50 flex items-center justify-center px-4">
+  <div class="w-full max-w-md">
+    <!-- Branding -->
+    <div class="text-center mb-8">
+      <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md text-white text-xs font-semibold px-4 py-2 rounded-full border border-white/10 mb-6">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        Admin Panel
+      </div>
+      <h1 class="font-heading font-extrabold text-3xl text-white">
+        <span class="text-blue-400">Vylogix</span> Studio
+      </h1>
+      <p class="text-slate-400 text-sm mt-2">Masuk untuk mengelola data website.</p>
+    </div>
+
+    <!-- Login Card -->
+    <div class="bg-white rounded-2xl shadow-2xl p-8">
+      <form id="loginForm" class="space-y-5">
+        <div>
+          <label class="block text-sm font-semibold text-primary mb-1.5">Email</label>
+          <input id="loginEmail" type="email" required placeholder="admin@vylogix.studio"
+            class="w-full px-4 py-3 rounded-btn border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all placeholder:text-gray-400">
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-primary mb-1.5">Password</label>
+          <input id="loginPassword" type="password" required placeholder="••••••••"
+            class="w-full px-4 py-3 rounded-btn border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all placeholder:text-gray-400">
+        </div>
+
+        <div id="loginError" class="hidden text-sm text-red-600 bg-red-50 border border-red-200 rounded-btn px-4 py-2.5 font-medium"></div>
+
+        <button id="loginBtn" type="submit"
+          class="w-full bg-accent text-white font-bold text-sm py-3.5 rounded-btn hover:bg-blue-700 transition-colors shadow-lg shadow-accent/25 flex items-center justify-center gap-2">
+          <span id="loginBtnText">Masuk ke Dashboard</span>
+          <div id="loginSpinner" class="spinner hidden" style="width:18px;height:18px;border-width:2px;border-top-color:white;border-color:rgba(255,255,255,0.3);"></div>
+        </button>
+      </form>
+    </div>
+
+    <p class="text-center text-slate-500 text-xs mt-6">
+      &copy; <span id="loginYear"></span> Vylogix Studio. Secured by Supabase Auth.
+    </p>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- DASHBOARD (Hidden until logged in)                            -->
+<!-- ============================================================ -->
+<div id="dashboard" class="hidden min-h-screen">
+
+  <!-- ── Top Bar ── -->
+  <header class="sticky top-0 z-40 bg-white/80 backdrop-blur-xl border-b border-gray-200/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-full bg-accent grid place-items-center text-white font-heading font-bold text-sm">V</div>
+        <div>
+          <h2 class="font-heading font-bold text-sm sm:text-base text-primary leading-tight">Admin Panel</h2>
+          <p class="text-xs text-secondary hidden sm:block">Vylogix Studio Dashboard</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <span id="userEmail" class="hidden sm:inline text-xs text-secondary bg-gray-100 px-3 py-1.5 rounded-full font-medium"></span>
+        <button id="logoutBtn"
+          class="inline-flex items-center gap-1.5 text-sm font-semibold text-red-500 hover:text-red-700 hover:bg-red-50 px-3 py-2 rounded-btn transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+          Logout
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+    <!-- ── Greeting ── -->
+    <div>
+      <h1 class="font-heading font-extrabold text-2xl sm:text-3xl text-primary">Hello, Admin Vylogix! 👋</h1>
+      <p class="text-secondary mt-1 text-sm sm:text-base">Kelola seluruh data portofolio dan pricelist website kamu dari sini.</p>
+    </div>
+
+    <!-- ── Summary Cards ── -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+      <!-- Web -->
+      <div class="stat-card bg-white rounded-card p-5 border border-gray-100">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-btn bg-blue-50 grid place-items-center text-accent">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <span class="text-xs font-bold text-secondary uppercase tracking-wider">Web</span>
+        </div>
+        <p id="statWeb" class="font-heading text-3xl font-extrabold text-primary">—</p>
+        <p class="text-xs text-secondary mt-0.5">Total Proyek</p>
+      </div>
+      <!-- Design -->
+      <div class="stat-card bg-white rounded-card p-5 border border-gray-100">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-btn bg-purple-50 grid place-items-center text-purple-600">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.9 0 1.5-.7 1.5-1.5 0-.4-.2-.8-.4-1-.3-.3-.4-.6-.4-1 0-.8.7-1.5 1.5-1.5H16c3.3 0 6-2.7 6-6 0-4.4-4.5-8-10-8z"/></svg>
+          </div>
+          <span class="text-xs font-bold text-secondary uppercase tracking-wider">Desain</span>
+        </div>
+        <p id="statDesain" class="font-heading text-3xl font-extrabold text-primary">—</p>
+        <p class="text-xs text-secondary mt-0.5">Total Karya</p>
+      </div>
+      <!-- Video -->
+      <div class="stat-card bg-white rounded-card p-5 border border-gray-100">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-btn bg-amber-50 grid place-items-center text-amber-600">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+          </div>
+          <span class="text-xs font-bold text-secondary uppercase tracking-wider">Video</span>
+        </div>
+        <p id="statVideo" class="font-heading text-3xl font-extrabold text-primary">—</p>
+        <p class="text-xs text-secondary mt-0.5">Total Video</p>
+      </div>
+      <!-- Pricelist -->
+      <div class="stat-card bg-white rounded-card p-5 border border-gray-100">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-btn bg-emerald-50 grid place-items-center text-emerald-600">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+          </div>
+          <span class="text-xs font-bold text-secondary uppercase tracking-wider">Pricelist</span>
+        </div>
+        <p id="statPricelist" class="font-heading text-3xl font-extrabold text-primary">—</p>
+        <p class="text-xs text-secondary mt-0.5">Total Paket</p>
+      </div>
+    </div>
+
+    <!-- ── Tab Navigation ── -->
+    <div class="flex flex-wrap items-center gap-2">
+      <button data-tab="portofolio" class="main-tab tab-active text-sm font-semibold px-5 py-2.5 rounded-full transition-all">
+        📂 Kelola Portofolio
+      </button>
+      <button data-tab="pricelist" class="main-tab tab-inactive text-sm font-semibold px-5 py-2.5 rounded-full transition-all">
+        💰 Kelola Pricelist
+      </button>
+    </div>
+
+    <!-- ============ TAB: PORTOFOLIO ============ -->
+    <div id="tabPortofolio">
+      <!-- Sub-Tab Filter -->
+      <div class="flex flex-wrap items-center justify-between gap-4 mb-5">
+        <div class="flex flex-wrap items-center gap-1.5 bg-white rounded-full border border-gray-200 p-1">
+          <button data-kat="all"    class="kat-tab subtab-active text-xs sm:text-sm font-medium px-3.5 sm:px-4 py-2 rounded-full transition-all">Semua</button>
+          <button data-kat="web"    class="kat-tab subtab-inactive text-xs sm:text-sm font-medium px-3.5 sm:px-4 py-2 rounded-full transition-all">🌐 Web</button>
+          <button data-kat="design" class="kat-tab subtab-inactive text-xs sm:text-sm font-medium px-3.5 sm:px-4 py-2 rounded-full transition-all">🎨 Desain</button>
+          <button data-kat="video"  class="kat-tab subtab-inactive text-xs sm:text-sm font-medium px-3.5 sm:px-4 py-2 rounded-full transition-all">🎬 Video</button>
+        </div>
+        <button id="btnTambahPortofolio"
+          class="inline-flex items-center gap-1.5 bg-accent text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-blue-700 transition-colors shadow-sm shadow-accent/20">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Tambah Karya Baru
+        </button>
+      </div>
+
+      <!-- Table -->
+      <div class="bg-white rounded-card border border-gray-100 overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="text-left text-xs font-bold text-secondary uppercase tracking-wider border-b border-gray-100">
+                <th class="px-5 py-4 w-16">Preview</th>
+                <th class="px-5 py-4">Judul</th>
+                <th class="px-5 py-4 hidden md:table-cell">Kategori</th>
+                <th class="px-5 py-4 hidden lg:table-cell">Tags</th>
+                <th class="px-5 py-4 text-center">Beranda</th>
+                <th class="px-5 py-4 text-center w-24">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyPortofolio">
+              <tr><td colspan="6" class="text-center py-16 text-secondary text-sm"><div class="spinner mx-auto"></div><p class="mt-3">Memuat data...</p></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ TAB: PRICELIST ============ -->
+    <div id="tabPricelist" class="hidden">
+      <div class="flex items-center justify-between gap-4 mb-5">
+        <p class="text-sm text-secondary font-medium">Semua paket layanan yang tersedia di website.</p>
+        <button id="btnTambahPricelist"
+          class="inline-flex items-center gap-1.5 bg-accent text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-blue-700 transition-colors shadow-sm shadow-accent/20">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Tambah Paket Baru
+        </button>
+      </div>
+
+      <div class="bg-white rounded-card border border-gray-100 overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="text-left text-xs font-bold text-secondary uppercase tracking-wider border-b border-gray-100">
+                <th class="px-5 py-4">Nama Paket</th>
+                <th class="px-5 py-4">Kategori</th>
+                <th class="px-5 py-4">Harga</th>
+                <th class="px-5 py-4 text-center hidden md:table-cell">Beranda</th>
+                <th class="px-5 py-4 text-center hidden md:table-cell">Populer</th>
+                <th class="px-5 py-4 text-center w-20">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyPricelist">
+              <tr><td colspan="6" class="text-center py-16 text-secondary text-sm"><div class="spinner mx-auto"></div><p class="mt-3">Memuat data...</p></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ============================================================ -->
+<!-- MODAL: TAMBAH PORTOFOLIO                                      -->
+<!-- ============================================================ -->
+<div id="modalPortofolio" class="fixed inset-0 z-50 hidden">
+  <div class="modal-backdrop absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="closeModal('portofolio')"></div>
+  <div class="relative h-full flex items-center justify-center p-4">
+    <div class="modal-content bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between px-6 py-4 border-b border-gray-100 sticky top-0 bg-white rounded-t-2xl z-10">
+        <h3 class="font-heading font-bold text-lg" id="modalPortofolioTitle">Tambah Karya Baru</h3>
+        <button onclick="closeModal('portofolio')" class="w-8 h-8 grid place-items-center rounded-full hover:bg-gray-100 transition-colors">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <form id="formPortofolio" class="p-6 space-y-4">
+        <input type="hidden" name="id" id="editPortofolioId">
+        <div>
+          <label class="block text-sm font-semibold mb-1.5">Judul <span class="text-red-400">*</span></label>
+          <input name="judul" type="text" required placeholder="Nama proyek..."
+            class="w-full px-4 py-2.5 rounded-btn border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all">
+        </div>
+        <div>
+          <label class="block text-sm font-semibold mb-1.5">Kategori <span class="text-red-400">*</span></label>
+          <select name="kategori" id="selectKategoriPorto" required
+            class="w-full px-4 py-2.5 rounded-btn border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all bg-white">
+            <option value="">— Pilih Kategori —</option>
+            <option value="web">🌐 Web Development</option>
+            <option value="design">🎨 Desain Grafis</option>
+            <option value="video">🎬 Video Editing</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-semibold mb-1.5">Deskripsi</label>
+          <textarea name="deskripsi" rows="2" placeholder="Deskripsi singkat proyek..."
+            class="w-full px-4 py-2.5 rounded-btn border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all resize-none"></textarea>
+        </div>
+        <div id="fieldGambar">
+          <label class="block text-sm font-semibold mb-1.5">URL Gambar</label>
+          <input name="gambar" type="text" placeholder="https://... atau assets/img/..."
+            class="w-full px-4 py-2.5 rounded-btn border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all">
+        </div>
+        <div id="fieldYoutube" class="hidden">
+          <label class="block text-sm font-semibold mb-1.5">ID YouTube <span class="text-red-400">*</span></label>
+          <input name="id_youtube" type="text" placeholder="cth: ouaQpg7Zvv0"
+            class="w-full px-4 py-2.5 rounded-btn border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all">
+          <p class="text-xs text-secondary mt-1">Ambil dari URL: youtube.com/watch?v=<strong>ouaQpg7Zvv0</strong></p>
+        </div>
+        <div id="fieldLink" class="hidden">
+          <label class="block text-sm font-semibold mb-1.5">Link Website</label>
+          <input name="link" type="text" placeholder="https://contoh-website.com"
+            class="w-full px-4 py-2.5 rounded-btn border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all">
+        </div>
+        <div id="fieldGaleri" class="hidden bg-blue-50/50 p-4 rounded-card border border-blue-100">
+          <div class="flex items-center justify-between mb-3">
+            <label class="block text-sm font-semibold text-accent">Galeri Sampel (Opsional)</label>
+            <button type="button" id="btnTambahGaleri" class="text-xs bg-accent text-white px-3 py-1.5 rounded-full hover:bg-blue-700 transition">+ Tambah Foto</button>
+          </div>
+          <div id="wadahListGaleri" class="space-y-3">
+            <!-- Row pertama default -->
+            <div class="galeri-row flex gap-2 items-start relative">
+              <div class="flex-grow space-y-2">
+                <input type="text" class="galeri-img w-full px-3 py-2 rounded-btn border border-gray-200 text-xs focus:ring-accent/30 focus:border-accent transition-all" placeholder="URL Gambar (https://...)">
+                <input type="text" class="galeri-desc w-full px-3 py-2 rounded-btn border border-gray-200 text-xs focus:ring-accent/30 focus:border-accent transition-all" placeholder="Deskripsi Gambar (Opsional)">
+              </div>
+              <button type="button" class="btn-hapus-galeri w-8 h-8 shrink-0 bg-red-100 text-red-500 rounded-btn flex items-center justify-center hover:bg-red-200 transition" title="Hapus">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div id="fieldDemoAkun" class="hidden bg-emerald-50/50 p-4 rounded-card border border-emerald-100">
+          <div class="mb-4 pb-4 border-b border-emerald-100/50">
+            <label class="block text-sm font-semibold text-emerald-700 mb-1.5">Kolom Tabel Akun Demo <span class="text-xs font-normal text-emerald-600/80">(pisahkan dengan koma)</span></label>
+            <input type="text" id="demoKolomInput" class="w-full px-3 py-2.5 rounded-btn border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 transition-all" placeholder="Contoh: Role, Email, Password" value="Role, Email, Password">
+            <p class="text-xs text-secondary mt-1">Ini akan menjadi judul kolom di tabel (Header Tabel).</p>
+          </div>
+          
+          <div class="flex items-center justify-between mb-3">
+            <label class="block text-sm font-semibold text-emerald-700">Data Akun Demo (Opsional)</label>
+            <button type="button" id="btnTambahDemo" class="text-xs bg-emerald-600 text-white px-3 py-1.5 rounded-full hover:bg-emerald-700 transition shadow-sm shadow-emerald-500/20">+ Tambah Akun</button>
+          </div>
+          <div id="wadahListDemo" class="space-y-3">
+            <!-- Row Default -->
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold mb-1.5">Tags <span class="text-xs font-normal text-secondary">(pisahkan dengan koma)</span></label>
+          <input name="tags" type="text" placeholder="Web, Landing Page, React"
+            class="w-full px-4 py-2.5 rounded-btn border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all">
+        </div>
+
+        <div id="fieldLayout" class="hidden bg-gray-50/50 p-4 rounded-card border border-gray-100">
+          <label class="block text-sm font-semibold mb-1.5">Ukuran Kartu Beranda <span class="text-xs font-normal text-secondary">(Khusus Karya Terpilih)</span></label>
+          <select name="layout_class" class="w-full px-4 py-2.5 rounded-btn border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all appearance-none bg-white">
+            <option value="auto">Otomatis (Bawaan)</option>
+            <option value="md:col-span-1 md:row-span-1 min-h-[220px]">Kotak Kecil (1x1)</option>
+            <option value="md:col-span-2 md:row-span-1 min-h-[220px]">Persegi Panjang Horizontal (2x1)</option>
+            <option value="md:col-span-1 md:row-span-2 min-h-[440px]">Persegi Panjang Vertikal (1x2)</option>
+            <option value="md:col-span-2 md:row-span-2 min-h-[250px] md:min-h-[440px]">Kotak Besar (2x2)</option>
+          </select>
+          <p class="text-xs text-secondary mt-2">Ini mengatur porsi kartu di halaman beranda (Bento Grid).</p>
+        </div>
+        <div class="pt-2">
+          <label class="flex items-center gap-3 cursor-pointer group">
+            <div class="relative">
+              <input type="checkbox" name="terpilih" id="checkTerpilih" class="sr-only peer" onchange="document.getElementById('fieldLayout').classList.toggle('hidden', !this.checked)">
+              <div class="w-10 h-6 bg-gray-200 rounded-full peer peer-checked:bg-accent transition-all"></div>
+              <div class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-all peer-checked:translate-x-4"></div>
+            </div>
+            <span class="text-sm font-medium">Tampilkan di Beranda (Karya Terpilih)</span>
+          </label>
+        </div>
+        <div class="pt-3 border-t border-gray-100">
+          <button type="submit"
+            class="w-full bg-accent text-white font-bold text-sm py-3 rounded-btn hover:bg-blue-700 transition-colors shadow-sm shadow-accent/20 flex items-center justify-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            Simpan Karya
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- MODAL: TAMBAH PRICELIST                                       -->
+<!-- ============================================================ -->
+<div id="modalPricelist" class="fixed inset-0 z-50 hidden">
+  <div class="modal-backdrop absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="closeModal('pricelist')"></div>
+  <div class="relative h-full flex items-center justify-center p-4">
+    <div class="modal-content bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between px-6 py-4 border-b border-gray-100 sticky top-0 bg-white rounded-t-2xl z-10">
+        <h3 class="font-heading font-bold text-lg">Tambah Paket Baru</h3>
+        <button onclick="closeModal('pricelist')" class="w-8 h-8 grid place-items-center rounded-full hover:bg-gray-100 transition-colors">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <form id="formPricelist" class="p-6 space-y-4">
+        <div>
+          <label class="block text-sm font-semibold mb-1.5">Nama Paket <span class="text-red-400">*</span></label>
+          <input name="nama_paket" type="text" required placeholder="cth: Paket Web Esensial"
+            class="w-full px-4 py-2.5 rounded-btn border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all">
+        </div>
+        <div>
+          <label class="block text-sm font-semibold mb-1.5">Kategori <span class="text-red-400">*</span></label>
+          <select name="kategori" required
+            class="w-full px-4 py-2.5 rounded-btn border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all bg-white">
+            <option value="">— Pilih Kategori —</option>
+            <option value="web">🌐 Web Development</option>
+            <option value="desain">🎨 Desain Grafis</option>
+            <option value="video">🎬 Video Editing</option>
+            <option value="combo">⭐ Combo / Bundling</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-semibold mb-1.5">Harga (Rupiah) <span class="text-red-400">*</span></label>
+          <input name="harga" type="number" required min="0" placeholder="350000"
+            class="w-full px-4 py-2.5 rounded-btn border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all">
+        </div>
+        <div>
+          <label class="block text-sm font-semibold mb-1.5">Fitur <span class="text-xs font-normal text-secondary">(satu fitur per baris)</span></label>
+          <textarea name="fitur" rows="4" placeholder="Landing Page Custom&#10;Animasi Interaktif&#10;Maksimal 2x Revisi"
+            class="w-full px-4 py-2.5 rounded-btn border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all resize-none"></textarea>
+        </div>
+        <div class="flex flex-col gap-3 pt-1">
+          <div class="flex items-center gap-3">
+            <input name="is_combo_beranda" type="checkbox" id="chkBeranda"
+              class="w-4 h-4 rounded border-gray-300 text-accent focus:ring-accent/30">
+            <label for="chkBeranda" class="text-sm font-medium">Tampilkan di Beranda</label>
+          </div>
+          <div class="flex items-center gap-3">
+            <input name="is_populer" type="checkbox" id="chkPopuler"
+              class="w-4 h-4 rounded border-gray-300 text-accent focus:ring-accent/30">
+            <label for="chkPopuler" class="text-sm font-medium">Tandai sebagai Paket Populer ⭐</label>
+          </div>
+        </div>
+        <div class="pt-3 border-t border-gray-100">
+          <button type="submit"
+            class="w-full bg-accent text-white font-bold text-sm py-3 rounded-btn hover:bg-blue-700 transition-colors shadow-sm shadow-accent/20 flex items-center justify-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            Simpan Paket
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- TOAST NOTIFICATION                                             -->
+<!-- ============================================================ -->
+<div id="toast" class="toast"></div>
+
+<!-- ============================================================ -->
+<!-- SCRIPTS                                                       -->
+<!-- ============================================================ -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/admin.js"></script>
+
+</body>
+</html>

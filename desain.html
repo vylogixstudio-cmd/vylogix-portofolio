@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portofolio Desain Grafis — Vylogix Studio</title>
+  <meta name="description" content="Eksplorasi visual terbaik dari Vylogix Studio. Branding, poster, UI/UX, dan desain social media berkualitas tinggi." />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            heading: ['"Plus Jakarta Sans"', 'sans-serif'],
+            body: ['"Inter"', 'sans-serif'],
+          },
+          colors: {
+            background: '#F8F9FA',
+            primary: '#111827',
+            secondary: '#4B5563',
+            accent: '#2563EB',
+            surface: '#FFFFFF',
+          },
+          borderRadius: { card: '20px' },
+        },
+      },
+    };
+  </script>
+
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-background font-body text-primary antialiased min-h-screen relative overflow-x-hidden">
+  
+  <div class="canvas-grid -z-10"></div>
+  <div class="absolute top-20 left-1/2 -translate-x-1/2 w-[500px] h-[300px] bg-blue-500/10 rounded-full blur-3xl -z-10 pointer-events-none"></div>
+
+  <nav class="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-gray-200/60 transition-all duration-300">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8 py-4 flex items-center justify-between">
+      <a href="index.html" class="group inline-flex items-center gap-2 text-secondary text-sm font-medium rounded-full px-4 py-2 border border-gray-200/80 bg-surface hover:border-accent hover:text-accent hover:shadow-sm transition-all duration-300">
+        <svg class="w-4 h-4 transition-transform duration-300 group-hover:-translate-x-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
+        Kembali ke Beranda
+      </a>
+      <span class="hidden sm:inline-flex items-center gap-2 text-xs font-bold tracking-wider text-secondary/70 uppercase">
+        <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
+        Vylogix Studio
+      </span>
+    </div>
+  </nav>
+
+  <header class="max-w-6xl mx-auto px-5 sm:px-8 pt-14 pb-8 text-center fade-up relative">
+    <span class="inline-flex items-center gap-1.5 text-accent text-xs font-bold bg-white/80 backdrop-blur-sm rounded-full px-4 py-2 mb-5 ring-1 ring-accent/20 shadow-sm">
+      <svg class="w-3.5 h-3.5 text-accent" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M4 2a2 2 0 00-2 2v11a3 3 0 106 0V4a2 2 0 00-2-2H4zm1 14a1 1 0 100-2 1 1 0 000 2zm5-1.757l4.9-4.9a2 2 0 000-2.828L13.485 5.1a2 2 0 00-2.828 0L10 5.757v8.486zM16 18H9.071l6-6H16a2 2 0 012 2v2a2 2 0 01-2 2z" clip-rule="evenodd"/>
+      </svg>
+      Layanan &amp; Portofolio
+    </span>
+
+    <h1 class="font-heading text-4xl sm:text-5xl lg:text-6xl font-extrabold text-primary leading-tight tracking-tight">
+      Eksplorasi <span class="text-accent relative inline-block">Desain Visual</span>
+    </h1>
+    
+    <p class="mt-4 text-secondary text-base sm:text-lg max-w-2xl mx-auto leading-relaxed font-normal">
+      Kumpulan karya visual yang kami rancang dengan perhatian pada detail — dari branding logo, poster event, hingga desain social media feed.
+    </p>
+
+    <div class="inline-flex items-center justify-center p-1.5 bg-white/80 backdrop-blur-md rounded-full border border-gray-200/80 mt-6 shadow-sm max-w-full">
+      <button id="btn-tab-portofolio" class="bg-accent text-white font-semibold text-xs sm:text-sm px-4 sm:px-6 py-2 sm:py-2.5 rounded-full transition-all duration-300 shadow-md shadow-accent/20 cursor-pointer whitespace-nowrap">
+        🎨 Portofolio Karya
+      </button>
+      <button id="btn-tab-pricelist" class="bg-surface text-secondary hover:text-primary border border-transparent font-semibold text-xs sm:text-sm px-4 sm:px-6 py-2 sm:py-2.5 rounded-full transition-all duration-300 hover:border-gray-200 cursor-pointer whitespace-nowrap">
+        💳 Pricelist &amp; Paket
+      </button>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-5 sm:px-8 pb-24 relative z-10">
+    <div id="wadah-desain" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 items-stretch"></div>
+    <div id="wadah-pricelist" class="hidden grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch"></div>
+  </main>
+
+  <!-- Supabase JS Library (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="assets/js/supabase.js"></script>
+  <script src="assets/js/script.js"></script>
+</body>
+</html>

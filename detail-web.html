@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Detail Sampel Portofolio — Vylogix Studio</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Fancybox CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            heading: ['"Plus Jakarta Sans"', 'sans-serif'],
+            body: ['"Inter"', 'sans-serif'],
+          },
+          colors: {
+            background: '#F8F9FA',
+            primary: '#111827',
+            secondary: '#4B5563',
+            accent: '#2563EB',
+            surface: '#FFFFFF',
+          },
+          borderRadius: { card: '20px' },
+        },
+      },
+    };
+  </script>
+
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-background font-body text-primary antialiased min-h-screen relative overflow-x-hidden flex flex-col">
+  
+  <!-- ===== Background Ambient Effects ===== -->
+  <div class="canvas-grid -z-10"></div>
+  <div class="absolute top-20 left-1/2 -translate-x-1/2 w-[500px] h-[300px] bg-blue-500/10 rounded-full blur-3xl -z-10 pointer-events-none"></div>
+
+  <!-- ===== Top Navigation ===== -->
+  <nav class="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-gray-200/60 transition-all duration-300">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8 py-4 flex items-center justify-between">
+      <a href="web.html" class="group inline-flex items-center gap-2 text-secondary text-sm font-medium rounded-full px-4 py-2 border border-gray-200/80 bg-surface hover:border-accent hover:text-accent hover:shadow-sm transition-all duration-300">
+        <svg class="w-4 h-4 transition-transform duration-300 group-hover:-translate-x-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
+        Kembali ke Portofolio
+      </a>
+      <span class="hidden sm:inline-flex items-center gap-2 text-xs font-bold tracking-wider text-secondary/70 uppercase">
+        <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
+        Vylogix Studio
+      </span>
+    </div>
+  </nav>
+
+  <!-- ===== Main Content Area ===== -->
+  <main class="flex-grow max-w-6xl mx-auto px-5 sm:px-8 py-10 w-full relative z-10">
+    
+    <!-- Loading State -->
+    <div id="loading-state" class="text-center py-32">
+      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-accent mx-auto"></div>
+      <p class="mt-4 text-secondary font-medium animate-pulse">Memuat data sampel...</p>
+    </div>
+
+    <!-- Error State -->
+    <div id="error-state" class="hidden text-center py-32">
+      <svg class="w-16 h-16 text-red-500 mx-auto mb-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+      </svg>
+      <h2 class="text-2xl font-heading font-bold text-primary">Data Tidak Ditemukan</h2>
+      <p class="text-secondary mt-2">Sampel yang Anda cari tidak ada atau terjadi kesalahan.</p>
+      <a href="web.html" class="inline-block mt-6 px-6 py-2.5 bg-accent text-white rounded-full font-medium hover:bg-blue-700 transition">Kembali ke Portofolio</a>
+    </div>
+
+    <!-- Content State -->
+    <div id="content-state" class="hidden">
+      <!-- Header -->
+      <header class="text-center mb-14 fade-up">
+        <h1 id="detail-title" class="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold text-primary leading-tight tracking-tight mb-4">
+          <!-- Judul di Render dari JS -->
+        </h1>
+        <p id="detail-desc" class="text-secondary text-base sm:text-lg max-w-3xl mx-auto leading-relaxed">
+          <!-- Deskripsi di Render dari JS -->
+        </p>
+        <div class="mt-8 flex justify-center">
+          <a id="detail-link" href="#" target="_blank" rel="noopener" class="inline-flex items-center gap-2 bg-accent text-white font-semibold px-8 py-3.5 rounded-full hover:bg-blue-700 hover:shadow-lg hover:shadow-accent/30 transition-all duration-300 hover:-translate-y-1">
+            Kunjungi Website Asli
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </a>
+        </div>
+      </header>
+
+      <!-- Galeri -->
+      <section id="galeri-section" class="mb-16 hidden fade-up">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="h-8 w-1.5 bg-accent rounded-full"></div>
+          <h2 class="font-heading text-2xl font-bold text-primary">Tampilan Fitur</h2>
+        </div>
+        <div id="galeri-container" class="grid grid-flow-row-dense grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <!-- Galeri Item di Render dari JS -->
+        </div>
+      </section>
+
+      <!-- Tabel Akun Demo -->
+      <section id="demo-section" class="mb-16 hidden fade-up">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="h-8 w-1.5 bg-accent rounded-full"></div>
+          <h2 class="font-heading text-2xl font-bold text-primary">Akses Akun Demo</h2>
+        </div>
+        <p class="text-secondary mb-6">Gunakan kredensial di bawah ini untuk mencoba berbagai peran pengguna dalam sistem.</p>
+        <div class="bg-surface rounded-card border border-gray-200 overflow-hidden shadow-sm">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead id="demo-thead" class="bg-gray-50 border-b border-gray-200">
+                <!-- Header Tabel di Render dari JS -->
+              </thead>
+              <tbody id="demo-tbody" class="divide-y divide-gray-100">
+                <!-- Baris Tabel di Render dari JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Final Action -->
+      <section class="text-center py-10 border-t border-gray-200 fade-up">
+        <h3 class="font-heading text-xl font-bold text-primary mb-3">Tertarik dengan sistem seperti ini?</h3>
+        <p class="text-secondary mb-6 max-w-xl mx-auto">Konsultasikan kebutuhan website Anda bersama tim Vylogix Studio sekarang juga.</p>
+        <a href="https://wa.me/6287828703713" target="_blank" class="inline-flex items-center gap-2 bg-blue-50 text-accent font-semibold px-8 py-3 rounded-full hover:bg-accent hover:text-white transition-all duration-300">
+          Hubungi Kami via WhatsApp
+        </a>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Libraries (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+
+  <script src="assets/js/supabase.js"></script>
+  <script src="assets/js/detail.js"></script>
+</body>
+</html>
